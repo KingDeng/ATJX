@@ -1,3 +1,3 @@
 # ATJX
-Shanghai AnTingJX Chrome Plug-in.
+Shanghai AnTingJX Chrome Extension.
 

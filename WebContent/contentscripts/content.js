@@ -1,7 +1,20 @@
 var timer;
 
 (function(){
-	
+	//刷新间隔label
+	var interval = $("<span>刷新间隔：</span>");
+	interval.attr("style", interStyle);
+	//添加输入框
+	var input = $("<input type='text' id='min' value='10S为单位'/>");
+	input.attr("style", inputStyle);
+	input.bind("focus", function(){
+		if(typeof($(this).val()) != "number")
+			$(this).val("");
+	});
+	input.bind("focusout", function(){
+		if($(this).val() == "")
+			$(this).val("10S为单位");
+	});
 	//添加刷新按钮
 	var button = $("<input type='button' id='timer' value='开始刷新'/>");
 	button.bind("click", function(e){
@@ -18,20 +31,36 @@ var timer;
 			localStorage.setItem("min", 0);
 		}
 	});
-	//添加输入框
-	var input = $("#<input type='text' id='min' value='10S为单位'/>");
-	input.bind("focus", function(){
+	//起止时间label
+	var label = $("<span>起止时间:</span>");
+	label.attr("style", labelStyle);
+	//起止时间input
+	var start = $("<input type='text' id='start' value='开始时间'/>");
+	start.attr("style", inputStyle);
+	start.bind("focus", function(){
 		if(typeof($(this).val()) != "number")
 			$(this).val("");
 	});
-	input.bind("focusout", function(){
+	start.bind("focusout", function(){
 		if($(this).val() == "")
-			$(this).val("10S为单位");
+			$(this).val("开始时间");
 	});
-	var interval = $("<span>刷新间隔：</span>");
-	interval.attr("style", interStyle);
+	//起止时间input
+	var end = $("<input type='text' id='start' value='结束时间'/>");
+	end.attr("style", inputStyle);
+	end.bind("focus", function(){
+		if(typeof($(this).val()) != "number")
+			$(this).val("");
+	});
+	end.bind("focusout", function(){
+		if($(this).val() == "")
+			$(this).val("结束时间");
+	});
 	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(interval);
 	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(input);
+	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(label);
+	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(start);
+	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(end);	
 	$("#ctl00_ContentPlaceHolder2_lblInfo").parent().parent().parent().parent().before(button);
 	
 	//执行刷新
