@@ -1,0 +1,17 @@
+﻿{
+	"name": "安亭驾校插件",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "用来在安亭驾校官网预约时间",
+	"permissions": ["management","tabs","notifications","webRequest","webRequestBlocking","http://211.144.78.162:8802/PupilWeb/logging/BookingCarStudy.aspx"],
+	"background": {
+		"scripts": ["contentscripts/content.js","libs/jquery.js"]
+	},
+	"content_scripts": [{
+		"all_frames": true,
+		"js": [ "libs/jquery.js","contentscripts/framework.js"],
+		"matches": [ "http://211.144.78.162:8802/PupilWeb/logging/BookingCarStudy.aspx"],
+		"run_at": "document_end"
+	}],
+	"web_accessible_resources": ["contentscripts/content.js","contentscripts/constant.js","libs/jquery.js"]
+}
