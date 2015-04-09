@@ -69,25 +69,30 @@ var timer;
 		console.log(tempMin);
 	else {
 		$("#timer").val("停止刷新");
+		$("#input").val(tempMin);
 		timer = setTimeout(exec, Number(tempMin) * 1000);
 	}
 	
 	//处理返回数据
-	console.log($("#ctl00_ContentPlaceHolder2_gvCoachInfo tr:contains('可预约')"));
+	var s = $("#start").val(), e = $("#end").val();
+	if(typeof(s) != "number" || s < 7)
+		s = 7;
+	if(typeof(e) != "number" || e > 20)
+		e = 20;
 	//$("#ctl00_ContentPlaceHolder2_GridView1 tr:contains('普桑')").remove();
 	$("#ctl00_ContentPlaceHolder2_gvCoachInfo tr:contains('可预约')").each(function(index, tr){
-		var flag = false;
-		$(tr).children().each(function(i,td){
-			if(i == 6 && $(td).text() == "可预约")
-				flag = true;
-			if(flag && (i == 7 && $(td).text() == "可预约")){
-				clearTimeout(timer);
-				localStorage.setItem("min", 0);
-				notifyMe();
+		var tds = $(tr).children();
+		tds.each(function(i,td){
+			if((s-5) < i && (e - 5) > i){
+				if($(td).text() == "可预约" && $(tds.get(i+1)).text() == "可预约"){
+					$("#timer").val("开始刷新");
+					clearTimeout(timer);
+					localStorage.setItem("min", 0);
+					notifyMe();
+				}
 			}
 		});
 	});
-	
 	
 })();
 
