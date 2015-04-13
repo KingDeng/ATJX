@@ -1,4 +1,4 @@
-var timer;
+var timer, size = 0;
 
 (function(){
 	//刷新间隔label
@@ -84,11 +84,12 @@ var timer;
 		var tds = $(tr).children();
 		tds.each(function(i,td){
 			if((s-5) < i && (e - 5) > i){
-				if($(td).text() == "可预约" && $(tds.get(i+1)).text() == "可预约"){
+				if($(td).text() == "可预约" && $(tds.get(i+1)).text() == "可预约" && size == 0){
 					$("#timer").val("开始刷新");
 					clearTimeout(timer);
 					localStorage.setItem("min", 0);
 					notifyMe();
+					size++;
 				}
 			}
 		});
@@ -106,17 +107,17 @@ function notifyMe() {
 		alert("This browser does not support desktop notification");
 	}else if (Notification.permission === "granted") {
 		var notification = new Notification("提醒",{
-			icon: "/image/logo.png",
+			icon: "2.ico",
 			body: "可以预约了！"
 		});
-	}else if (Notification.permission !== 'denied') {
+	}else if (Notification.permission !== 'granted') {
 		Notification.requestPermission(function (permission) {
 			if(!('permission' in Notification)) {
 				Notification.permission = permission;
 			}
 			if (permission === "granted") {
 				var notification = new Notification("提醒",{
-					icon: "/image/logo.png",
+					icon: "2.ico",
 					body: "可以预约了！"
 				});
 			}
